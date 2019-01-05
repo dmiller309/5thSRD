@@ -20,11 +20,23 @@
         <link href="{{ path }}" rel="stylesheet">
         {%- endfor %}
 
+        <link rel="manifest" href="/manifest.json">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+
+        <script>
+            // Check that service workers are registered
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js');
+                });
+            }
+        </script>
 
         {% if config.google_analytics %}
         <script>
@@ -72,7 +84,7 @@
              <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
              </script>
-            {% endif %} 
+            {% endif %}
             <p style="margin-top: 20px">Questions or comments can be directed to <a href="mailto:john@5thsrd.org">john@5thsrd.org</a>.  Theme provided by <a href="https://github.com/ron-reaser">Reaser</a>.</p>
             {% if config.copyright %}
                 <p>{{ config.copyright }}</p>
